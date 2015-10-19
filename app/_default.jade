@@ -1,0 +1,47 @@
+- var theme = 'reveal.js/css/theme/white.css'
+
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    block title
+      title reveal.js - The HTML Presentation Framework
+    block meta
+      meta(name='description', content='A framework for easily creating beautiful presentations using HTML')
+      meta(name='author', content='Hakim El Hattab')
+    meta(name='apple-mobile-web-app-capable', content='yes')
+    meta(name='apple-mobile-web-app-status-bar-style', content='black-translucent')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui')
+    link(rel='stylesheet', href='reveal.js/css/reveal.css')
+    link#theme(rel='stylesheet', href='#{theme}')
+    // Code syntax highlighting
+    link(rel='stylesheet', href='reveal.js/lib/css/zenburn.css')
+    link(rel='stylesheet', href='http://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css')
+    // Printing and PDF exports
+    script.
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ?
+        'reveal.js/css/print/pdf.css' :
+        'reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    link(rel='stylesheet', href='app.css')
+  body
+    .reveal
+      .slides
+        block slides
+          section
+            h1 Reveal.js
+            h3 The HTML Presentation Framework
+            p
+              small
+                | Created by
+                a(href='http://hakim.se') Hakim El Hattab
+                |  /
+                a(href='http://twitter.com/hakimel') @hakimel
+
+    script(src='reveal.js/lib/js/head.min.js')
+    script(src='reveal.js/js/reveal.js')
+    script(src='app.js')
+
