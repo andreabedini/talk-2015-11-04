@@ -33,6 +33,9 @@
     });
 
   function update() {
+    //
+    // update speeds
+    //
     for (var i = 0; i < N; ++i) {
       var h = cells[(i + 1) % N].x - cells[i].x - 1;
 
@@ -46,6 +49,12 @@
         cells[i].v -= 1;
       }
 
+    }
+
+    //
+    // update positions
+    //
+    for (var i = 0; i < N; ++i) {
       cells[i].x += cells[i].v;
       cells[i].x %= L;
     }
