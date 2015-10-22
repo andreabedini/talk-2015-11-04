@@ -8,7 +8,7 @@
     "css-brunch": "^1.7.0",
     "jaded-brunch": "^1.7.13",
     "javascript-brunch": "^1.8.0",
-    "jstransformer-katex": "file:../code/jstransformer-katex"
+    "jstransformer-katex": "0.0.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
