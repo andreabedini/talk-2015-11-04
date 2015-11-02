@@ -60,47 +60,6 @@ block slides
   +slide
 
     +slide(data-transition='none-out')
-      h3 Asymmetric Simple Exclusion Process
-
-      svg#asep
-
-      ul
-        p Definitions
-        li Fix $0 < p < 1$
-        li Let $x_i = 0$ if empty and $x_i = 1$ if occupied
-
-        .fragment
-          p Update rule (parallel)
-          li pick all $i$'s such that $x_i = 1$ and $x_{i + 1} = 0$
-          li each hops with probability $p$
-
-      aside.notes.
-        parallel -> discrete time <br>
-        random sequential -> continuous time
-        dynamics conserves the number of vehicles
-
-    +slide(data-transition='none-in')
-      h3 Asymmetric Simple Exclusion Process
-
-      svg#asep
-
-      ul
-        p &nbsp;
-        li Simplest model of a driven system
-        li The Ising-model of non-equilibrium systems
-        li Integrable
-
-        .fragment
-          p It has connections to
-          li Growth models
-          li KPZ equation
-          li GUE form Random Matrix Theory
-
-      aside.notes
-        | simplest non trivial!
-        | integrable with various boundary conditions
-
-    +slide(data-transition='none-out')
       h3 Nagel-Schreckenberg process
 
       svg#nasch.fragment
@@ -117,17 +76,11 @@ block slides
           li $v_n = v_n - 1$ with probability $p$
           li $x_n = x_n + v_n$
 
-        p.fragment ASEP is NaSch with $v_{max} = 1$ and $p \leftrightarrow 1 - p$
-
       aside.notes.
         Nagel, Schreckenberg, J Phys (1992)
 
         Acceleration of free cars, deceleration due to other cars,
         randomisation, movement
-
-        both random-sequential and parallel updates are possible
-
-        parallel is considered more realistic
 
     +slide(data-transition='none-in')
       h3 Nagel-Schreckenberg process
@@ -141,10 +94,11 @@ block slides
         li $v_{max} = 5$ corresponds to 135 km/h
         .fragment
           br
-          li Universality class not entirely clear
+          li Very simple model of a driven system
+          li Likely in the KPZ universality class
 
       aside.notes.
-        At least before looking at Johannes's plots on Friday
+        Just like ASEP
 
   +slide
     +slide
