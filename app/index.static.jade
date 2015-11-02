@@ -199,18 +199,20 @@ block slides
       ul
         li(data-fragment-index=2).fragment
           span(style='color: #1b9e77;') A
-          |  is not allowed to change lane, it doesn't have to
+          |  is not allowed to change lane, not required to
         li(data-fragment-index=4).fragment
           span(style='color: #d95f02;') B
-          |  is allowed to change lane, it doesn't have to
+          |  is allowed to change lane, not required to
         li(data-fragment-index=6).fragment
           span(style='color: #7570b3;') C
-          |  is allowed to change lane, it has to
+          |  is allowed to change lane, required to
 
       p(data-fragment-index=7).fragment.
         Dynamical lane changing allowed if it doesn't contradict topological lane changing
 
       aside.notes.
+        A path is a pair (in-lane, out-lane)
+
         Assume a vehicle A has decided to turn left ...
 
     +slide
@@ -232,42 +234,6 @@ block slides
       aside.notes.
         A sort of random walk in a random environment
 
-    +slide(data-transition='none-out')
-      h3 Intersections - paths
-
-      svg(width=800, height=400)
-        line(x1=0, y1=150, x2=800, y2=150, stroke='black', stroke-width=1)
-        line(x1=0, y1=200, x2=800, y2=200, stroke='black', stroke-width=1)
-        line(x1=0, y1=250, x2=800, y2=250, stroke='black', stroke-width=1)
-
-        line(x1=350, y1=0, x2=350, y2=400, stroke='black', stroke-width=1)
-        line(x1=400, y1=0, x2=400, y2=400, stroke='black', stroke-width=1)
-        line(x1=450, y1=0, x2=450, y2=400, stroke='black', stroke-width=1)
-
-        rect(x=350, y=150, width=100, height=100, style='fill: lightgoldenrodyellow;')
-
-        path(d="M 50 175 h 50 #{arrow_right}", stroke='black' fill='black')
-        path(d="M 100 225 h -50 #{arrow_left}", stroke='black' fill='black')
-
-        path(d="M 700 175 h 50 #{arrow_right}", stroke='black' fill='black')
-        path(d="M 750 225 h -50 #{arrow_left}", stroke='black' fill='black')
-
-        path(d="M 375 75 v -50 #{arrow_up}", stroke='black' fill='black')
-        path(d="M 425 25 v 50 #{arrow_down}", stroke='black' fill='black')
-
-        path(d="M 375 375 v -50 #{arrow_up}", stroke='black' fill='black')
-        path(d="M 425 325 v 50 #{arrow_down}", stroke='black' fill='black')
-
-        path(d="M 275 175 h 50 q 50 0 50 -50 v -25 #{arrow_up}", stroke='blue', fill='none').fragment
-        path(d="M 275 175 h 250 #{arrow_right}", stroke='blue', fill='none').fragment
-        path(d="M 275 175 h 100 q 50 0 50 50 v 50 #{arrow_down}", stroke='blue', fill='none').fragment
-
-      p.fragment.
-        A <em style="color: blue;">path</em> is a ordered pair (in-lane, out-lane)
-
-      p.fragment.
-        Right-of-way induces a partial order among paths
-
     +slide(data-transition='none-in')
       h3 Intersections - phases
 
@@ -283,6 +249,14 @@ block slides
         rect(x=350, y=150, width=100, height=100, style='fill: lightgoldenrodyellow;')
 
         g
+          text(x=100, y=100, fill="violet", data-fragment-index=2).fragment.current-visible.
+            Phase 1
+          text(x=100, y=100, fill="violet", data-fragment-index=3).fragment.current-visible.
+            Phase 2
+          text(x=100, y=100, fill="violet", data-fragment-index=4).fragment.current-visible.
+            Phase 3
+
+        g
           path(d="M 50 175 h 50 #{arrow_right}", stroke='black' fill='black')
           path(d="M 100 225 h -50 #{arrow_left}", stroke='black' fill='black')
 
@@ -295,21 +269,21 @@ block slides
           path(d="M 375 375 v -50 #{arrow_up}", stroke='black' fill='black')
           path(d="M 425 325 v 50 #{arrow_down}", stroke='black' fill='black')
 
-        g.fragment.current-visible
+        g(data-fragment-index=2).fragment.current-visible
           path(d="M 275 175 h 250 #{arrow_right}", stroke='blue', fill='none')
           path(d="M 275 175 h 50 q 50 0 50 -50 v -25 #{arrow_up}", stroke='blue', fill='none')
 
           path(d="M 275 225 #{arrow_left} h 250", stroke='blue', fill='none')
           path(d="M 525 225 h -50 q -50 0 -50 50 v 25 #{arrow_down}", stroke='blue', fill='none')
 
-        g.fragment.current-visible
+        g(data-fragment-index=3).fragment.current-visible
           path(d="M 375 300 v -200 #{arrow_up}", stroke='blue', fill='none')
           path(d="M 375 300 v -25 q 0 -50 -50 -50 h -25 #{arrow_left}", stroke='blue', fill='none')
 
           path(d="M 425 100 v 200 #{arrow_down}", stroke='blue', fill='none')
           path(d="M 425 100 v 25 q 0 50 50 50 h 25 #{arrow_right}", stroke='blue', fill='none')
 
-        g.fragment.current-visible
+        g(data-fragment-index=4).fragment.current-visible
           path(d="M 375 300 v -75 q 0 -50 50 -50 h 75 #{arrow_right}", stroke='blue', fill='none')
           path(d="M 425 100 v 75  q 0 50 -50 50 h -75 #{arrow_left}", stroke='blue', fill='none')
 
@@ -319,9 +293,9 @@ block slides
       p Only paths in current phase can be crossed
 
     +slide
-      h3 Intersections - Signals
+      h3 Intersections - signals
 
-      p Different traffic signalling logics can be implemented
+      p Traffic signalling logic chooses the active phase
 
       ul
         .fragment
@@ -335,7 +309,7 @@ block slides
           p
             small J de Gier, T M Garoni, O Rojas, J. Stat. Mech. (2011)
             br/
-            | Adaptive, acyclic
+            | Also adaptive, acyclic
 
       aside.notes.
         A finite state machine that defines the current active phase
@@ -346,19 +320,6 @@ block slides
 
     +slide
       img(src="structure.svg", style="border: none; box-shadow: none;")
-
-    +slide
-      h3 Macroscopic Fundamental Diagram
-      h4 Stationary
-
-      table
-        tr
-          td(width="50%")
-            img(src="mfd_daganzo.png", style="border: none; box-shadow: none;")
-            p: small Geroliminis & Daganzo 2008 <br> Empirical data from Yokohama
-          td(width="50%")
-            img(src="mfd_stationary.svg", style="border: none; box-shadow: none;")
-            p: small Zhang, Garoni, de Gier 2013 <br> Simulated data
 
     +slide
       h3 Macroscopic Fundamental Diagram
@@ -379,11 +340,11 @@ block slides
 
       ul
         .fragment
-          p "Theoretical nature"
+          p Theoretical nature
           li Incidents and diversions
           li Effect of parking
           li Tram priority
-          li Effect of Tram stop location
+          li Effect of tram stop location
         .fragment
           p Case studies
           li Inner North region
