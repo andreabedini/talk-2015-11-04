@@ -1,0 +1,55 @@
+
+rect {
+    stroke: black;
+    fill: none;
+}
+
+circle.vehicle {
+    stroke: black;
+    fill: none;
+}
+
+#asep circle.vehicle { fill: black; }
+
+text.vehicle {
+    text-anchor: middle;
+    alignment-baseline: central;
+}
+
+svg#dynamic {
+    margin-top: 1em;
+}
+
+.reveal .katex { font-family: KaTeX_Main; }
+.reveal .math-katex-error { color: red }
+
+.reveal .katex.display { display: block }
+
+.reveal .katex.inline:not(first) {
+    margin-left: 0.35em;
+}
+
+#new-design {
+    margin-top: 3em;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+img#new-design-1,
+img#new-design-2,
+img#new-design-3 {
+    width: 300px;
+    height: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 300px;
+    margin: 20px;
+}
+
+
+
+/*# sourceMappingURL=app.css.map*/

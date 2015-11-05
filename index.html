@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Hello</title>
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" href="reveal.js/css/reveal.css">
+    <link id="theme" rel="stylesheet" href="reveal.js/css/theme/white.css">
+    <!-- Code syntax highlighting-->
+    <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+    <!-- Printing and PDF exports-->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ?
+        'reveal.js/css/print/pdf.css' :
+        'reveal.js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <link rel="stylesheet" href="app.css">
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h3>From statistical mechanics</h3>
+          <h3>to real-world traffic simulations</h3>
+          <div style="margin-top: 8em;">
+            <p>Andrea Bedini</p>
+            <p><small>The University of Melbourne / MASCOS / ACEMS</small></p>
+          </div>
+        </section>
+        <section>
+          <section>
+            <ul style="margin-top: 3em;">
+              <li>2008 ARC CoE MASCOS begins working with VicRoads</li>
+              <li>2008–2011 MASCOS/VicRoads projects build prototype</li>
+              <li>2012–2014 ARC Linkage Project</li>
+              <li>2015 ARC CoE ACEMS</li>
+            </ul>
+          </section>
+          <section>
+            <h3>Many people involved</h3>
+            <ul>
+              <li>Jan de Gier (University of Melbourne)</li>
+              <li>Tim Garoni (Monash University)</li>
+              <li>Lele Zhang (Monash University)</li>
+              <li>Somayeh Shiri (Monash University)</li>
+              <li>Omar Rojas (La Trobe University)</li>
+              <li>Chris Manzie (University of Melbourne)</li>
+              <li>Will Moase (University of Melbourne)</li>
+              <li>Hai Vu (Swinburne)</li>
+              <li>Manoj Panda (Swinburne)</li>
+              <li>Andrea Bedini (University of Melbourne)</li>
+            </ul>
+          </section>
+          <section>
+            <h3>In brief</h3>
+            <ul>
+              <li class="fragment">A traffic simulator</li>
+              <li class="fragment">Stochastic cellular automata</li>
+              <li class="fragment">Discrete in time and space</li>
+              <li class="fragment">Mesoscopic</li>
+              <li class="fragment">Agent-based</li>
+              <li class="fragment">Realistic traffic signals</li>
+              <li class="fragment">Multi-modal</li>
+            </ul>
+            <aside class="notes">
+              Microscopic track individual cars
+              Macroscopic track density
+              
+              Agent based behaviour rules
+              
+            </aside>
+          </section>
+        </section>
+        <section>
+          <section data-transition="none-out">
+            <h3>Nagel-Schreckenberg process</h3>
+            <svg id="nasch" class="fragment"></svg>
+            <ul class="fragment">
+              <li>Let $0 < p < 1$, and $v_{max} \in \mathbb N$</li>
+              <li>Let $x_n$ and $v_n$ be the position and speed of the $n$th vehicle</li>
+              <li>Let $d_n$ be the gap in front of the $n$th vehicle</li>
+              <div class="fragment">
+                <p>Update rules</p>
+                <li>$v_n = \min\left(v_n + 1, v_{max}\right)$</li>
+                <li>$v_n = \min\left(v_n, d_n\right)$</li>
+                <li>$v_n = v_n - 1$ with probability $p$</li>
+                <li>$x_n = x_n + v_n$</li>
+              </div>
+            </ul>
+            <aside class="notes">
+              Nagel, Schreckenberg, J Phys (1992)
+              
+              Acceleration of free cars, deceleration due to other cars,
+              randomisation, movement
+              
+            </aside>
+          </section>
+          <section data-transition="none-in">
+            <h3>Nagel-Schreckenberg process</h3>
+            <svg id="nasch"></svg>
+            <ul>
+              <p>Realistic parameters</p>
+              <li>time step 1 sec</li>
+              <li>cell size $\sim 7.5 \text{m}$</li>
+              <li>$v_{max} = 5$ corresponds to 135 km/h</li>
+              <div class="fragment"><br>
+                <li>Very simple model of a driven system</li>
+                <li>Likely in the KPZ universality class</li>
+              </div>
+            </ul>
+            <aside class="notes">
+              Just like ASEP
+              
+            </aside>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3>Extensions</h3>
+            <p class="fragment">
+              How do we turn this into a realistic model for traffic?
+              
+            </p>
+            <ul>
+              <div class="fragment">
+                <li>Roads form a network</li>
+                <li>Roads (links) have many lanes</li>
+                <li>Intersections</li>
+              </div>
+              <div class="fragment"><br>
+                <li>Rules for lane changing</li>
+                <li>Rules for intersections</li>
+                <li>Turning decisions</li>
+              </div>
+              <div class="fragment"><br>
+                <li>Multiple vehicles types: cars, trams, buses, trains, ...</li>
+              </div>
+            </ul>
+            <aside class="notes">
+              Despite being two days from 21 October 2015
+              
+            </aside>
+          </section>
+          <section data-background="Back-to-the-Future-II-Hoverboard.jpg">
+            <div style="margin-top: 40%; color: white">
+              <h1 style="color: white">NO HOVERBOARD</h1>
+            </div>
+          </section>
+          <section>
+            <h3>Dynamic lane changing</h3>
+            <svg id="dynamic" width="800" height="200">
+              <line x1="0" y1="0" x2="750" y2="0" stroke="black" stroke-width="1"></line>
+              <line x1="0" y1="50" x2="750" y2="50" stroke="black" stroke-width="1"></line>
+              <line x1="0" y1="100" x2="750" y2="100" stroke="black" stroke-width="1"></line>
+              <line x1="0" y1="0" x2="0" y2="100" stroke="black" stroke-width="1"></line>
+              <line x1="50" y1="0" x2="50" y2="100" stroke="black" stroke-width="1"></line>
+              <line x1="100" y1="0" x2="100" y2="100" stroke="black" stroke-width="1"></line>
+              <line x1="150" y1="0" x2="150" y2="100" stroke="black" stroke-width="1"></line>
+              <line x1="200" y1="0" x2="200" y2="100" stroke="black" stroke-width="1"></line>
+              <line x1="250" y1="0" x2="250" y2="100" stroke="black" stroke-width="1"></line>
+              <line x1="300" y1="0" x2="300" y2="100" stroke="black" stroke-width="1"></line>
+              <line x1="350" y1="0" x2="350" y2="100" stroke="black" stroke-width="1"></line>
+              <line x1="400" y1="0" x2="400" y2="100" stroke="black" stroke-width="1"></line>
+              <line x1="450" y1="0" x2="450" y2="100" stroke="black" stroke-width="1"></line>
+              <line x1="500" y1="0" x2="500" y2="100" stroke="black" stroke-width="1"></line>
+              <line x1="550" y1="0" x2="550" y2="100" stroke="black" stroke-width="1"></line>
+              <line x1="600" y1="0" x2="600" y2="100" stroke="black" stroke-width="1"></line>
+              <line x1="650" y1="0" x2="650" y2="100" stroke="black" stroke-width="1"></line>
+              <line x1="700" y1="0" x2="700" y2="100" stroke="black" stroke-width="1"></line>
+              <line x1="750" y1="0" x2="750" y2="100" stroke="black" stroke-width="1"></line>
+              <circle cx="275" cy="25" r="20" class="vehicle" fill="#1b9e77"></circle>
+              <text x="275" y="25" class="vehicle" fill="#1b9e77">A</text>
+              <circle cx="475" cy="25" r="20" class="vehicle"></circle>
+              <text x="475" y="25" class="vehicle">2</text>
+              <circle cx="125" cy="75" r="20" class="vehicle fragment" fill="#d95f02" data-fragment-index='2'></circle>
+              <text x="125" y="75" class="vehicle fragment" fill="#d95f02" data-fragment-index='2'>B</text>
+              <circle cx="575" cy="75" r="20" class="vehicle"></circle>
+              <text x="575" y="75" class="vehicle">3</text>
+              <foreignObject x="300" y="-65" data-fragment-index='1' class="fragment">\(\underleftrightarrow{\hspace 9.5pt \, d_A \, \hspace 9.5pt}\)</foreignObject>
+              <foreignObject x="300" y="100" data-fragment-index='1' class="fragment">\(\overleftrightarrow{\hspace 18pt \, d_A^{(f)} \, \hspace 18pt}\)</foreignObject>
+              <foreignObject x="150" y="100" data-fragment-index='2' class="fragment">
+                \(\overleftrightarrow{\hspace 2.2pt \, d_A^{(b)} \, \hspace 2.2pt}\)
+                
+              </foreignObject>
+            </svg>
+            <ul>
+              <li class="fragment">
+                If $\min\left(\color{#1b9e77}{v_A} + 1, d_A^{(f)}, v_{max}\right) >
+                \min\left(\color{#1b9e77}{v_A} + 1, d_A, v_{max}\right)$ then lane
+                change is <em>desirable</em>
+              </li>
+              <li class="fragment">
+                If $d_A^{(b)} \geq \color{#d95f02}{v_B}$ the lane change is
+                <em>safe</em>
+              </li>
+              <li class="fragment">
+                If desirable <em>and</em> safe, accept with probabiltiy $p_{change}$
+                
+              </li>
+            </ul>
+            <aside class="notes">
+              Look forward, look back
+              
+            </aside>
+          </section>
+          <section>
+            <h3>Topological lane changing</h3>
+            <svg id="topological" width="800" height="300">
+              <g>
+                <rect x="0" y="100" width="50" height="50"></rect>
+                <rect x="0" y="150" width="50" height="50"></rect>
+                <rect x="50" y="100" width="50" height="50"></rect>
+                <rect x="50" y="150" width="50" height="50"></rect>
+                <rect x="100" y="100" width="50" height="50"></rect>
+                <rect x="100" y="150" width="50" height="50"></rect>
+                <rect x="150" y="100" width="50" height="50"></rect>
+                <rect x="150" y="150" width="50" height="50"></rect>
+                <rect x="200" y="100" width="50" height="50"></rect>
+                <rect x="200" y="150" width="50" height="50"></rect>
+                <rect x="250" y="100" width="50" height="50"></rect>
+                <rect x="250" y="150" width="50" height="50"></rect>
+                <rect x="300" y="100" width="50" height="50"></rect>
+                <rect x="300" y="150" width="50" height="50"></rect>
+                <rect x="350" y="100" width="50" height="50"></rect>
+                <rect x="350" y="150" width="50" height="50"></rect>
+                <rect x="400" y="100" width="50" height="50"></rect>
+                <rect x="400" y="150" width="50" height="50"></rect>
+                <rect x="450" y="100" width="50" height="50"></rect>
+                <rect x="450" y="150" width="50" height="50"></rect>
+                <rect x="500" y="100" width="50" height="50"></rect>
+                <rect x="500" y="150" width="50" height="50"></rect>
+                <rect x="550" y="100" width="50" height="50"></rect>
+                <rect x="550" y="150" width="50" height="50"></rect>
+                <rect x="600" y="100" width="50" height="50"></rect>
+                <rect x="600" y="150" width="50" height="50"></rect>
+                <rect x="650" y="100" width="50" height="50"></rect>
+                <rect x="650" y="150" width="50" height="50"></rect>
+                <rect x="700" y="100" width="50" height="50"></rect>
+                <rect x="700" y="150" width="50" height="50"></rect>
+              </g>
+              <g>
+                <rect x="500" y="100" width="50" height="50"></rect>
+                <rect x="550" y="100" width="50" height="50"></rect>
+                <rect x="500" y="50" width="50" height="50"></rect>
+                <rect x="550" y="50" width="50" height="50"></rect>
+                <rect x="500" y="0" width="50" height="50"></rect>
+                <rect x="550" y="0" width="50" height="50"></rect>
+                <rect x="500" y="-50" width="50" height="50"></rect>
+                <rect x="550" y="-50" width="50" height="50"></rect>
+              </g>
+              <g>
+                <rect x="500" y="150" width="50" height="50"></rect>
+                <rect x="550" y="150" width="50" height="50"></rect>
+                <rect x="500" y="200" width="50" height="50"></rect>
+                <rect x="550" y="200" width="50" height="50"></rect>
+                <rect x="500" y="250" width="50" height="50"></rect>
+                <rect x="550" y="250" width="50" height="50"></rect>
+                <rect x="500" y="300" width="50" height="50"></rect>
+                <rect x="550" y="300" width="50" height="50"></rect>
+              </g>
+              <rect x="500" y="100" width="100" height="100" style="fill: lightgoldenrodyellow;"></rect>
+              <path d="M 375 125 h 300 l -3 -10 l 10 10 l -10 10 l 3 -10" stroke="blue" fill="none"></path>
+              <path d="M 375 125 h 100 q 50 0 50 -50 l 10 3 l -10 -10 l -10 10 l 10 -3" stroke="blue" fill="none"></path>
+              <path d="M 375 175 h 300 l -3 -10 l 10 10 l -10 10 l 3 -10" stroke="blue" fill="none"></path>
+              <path d="M 375 175 h 100 q 50 0 50 50 l -10 -3 l 10 10 l 10 -10 l -10 3" stroke="blue" fill="none"></path>
+              <g data-fragment-index='1' class="fragment">
+                <circle cx="275" cy="125" r="20" class="vehicle" fill="#1b9e77"></circle>
+                <text x="275" y="125" class="vehicle" fill="#1b9e77">A</text>
+                <circle cx="525" cy="25" r="20" class="vehicle" fill="#1b9e77" stroke-dasharray="5 5"></circle>
+                <text x="525" y="25" class="vehicle" fill="#1b9e77" stroke-dasharray="5 5">A</text>
+              </g>
+              <g data-fragment-index='3' class="fragment">
+                <circle cx="175" cy="175" r="20" class="vehicle" fill="#d95f02"></circle>
+                <text x="175" y="175" class="vehicle" fill="#d95f02">B</text>
+                <circle cx="725" cy="175" r="20" class="vehicle" fill="#d95f02" stroke-dasharray="5 5"></circle>
+                <text x="725" y="175" class="vehicle" fill="#d95f02" stroke-dasharray="5 5">B</text>
+              </g>
+              <g data-fragment-index='5' class="fragment">
+                <circle cx="125" cy="125" r="20" class="vehicle" fill="#7570b3"></circle>
+                <text x="125" y="125" class="vehicle" fill="#7570b3">C</text>
+                <circle cx="525" cy="275" r="20" class="vehicle" fill="#7570b3" stroke-dasharray="5 5"></circle>
+                <text x="525" y="275" class="vehicle" fill="#7570b3" stroke-dasharray="5 5">C</text>
+              </g>
+            </svg>
+            <ul>
+              <li data-fragment-index='2' class="fragment"><span style="color: #1b9e77;">A</span> is not allowed to change lane, not required to</li>
+              <li data-fragment-index='4' class="fragment"><span style="color: #d95f02;">B</span> is allowed to change lane, not required to</li>
+              <li data-fragment-index='6' class="fragment"><span style="color: #7570b3;">C</span> is allowed to change lane, required to</li>
+            </ul>
+            <p data-fragment-index='7' class="fragment">
+              Dynamical lane changing allowed if it doesn't contradict topological lane changing
+              
+            </p>
+            <aside class="notes">
+              A path is a pair (in-lane, out-lane)
+              
+              Assume a vehicle A has decided to turn left ...
+              
+            </aside>
+          </section>
+          <section>
+            <h3>Turning decisions</h3>
+            <ul>
+              <li>Random with some input probabilities: $P(l \to l')$</li>
+              <li>Decision made when vehicle first enters a link</li>
+              <li>It affects lane changing dynamics</li>
+              <li>Turning probabilities can be constant or time-dependent</li>
+            </ul>
+            <div style="margin-top: 1em;" class="fragment">
+              <h3>Boundary rates</h3>
+              <ul>
+                <li>Links are given (time-dependent) inflow and outflow rates</li>
+                <li>"Open" boundaries conditions</li>
+              </ul>
+            </div>
+            <aside class="notes">
+              A sort of random walk in a random environment
+              
+            </aside>
+          </section>
+          <section data-transition="none-in">
+            <h3>Intersections - phases</h3>
+            <svg width="800" height="400">
+              <line x1="0" y1="150" x2="800" y2="150" stroke="black" stroke-width="1"></line>
+              <line x1="0" y1="200" x2="800" y2="200" stroke="black" stroke-width="1"></line>
+              <line x1="0" y1="250" x2="800" y2="250" stroke="black" stroke-width="1"></line>
+              <line x1="350" y1="0" x2="350" y2="400" stroke="black" stroke-width="1"></line>
+              <line x1="400" y1="0" x2="400" y2="400" stroke="black" stroke-width="1"></line>
+              <line x1="450" y1="0" x2="450" y2="400" stroke="black" stroke-width="1"></line>
+              <rect x="350" y="150" width="100" height="100" style="fill: lightgoldenrodyellow;"></rect>
+              <g>
+                <text x="100" y="100" fill="violet" data-fragment-index='2' class="fragment current-visible">Phase 1</text>
+                <text x="100" y="100" fill="violet" data-fragment-index='3' class="fragment current-visible">Phase 2</text>
+                <text x="100" y="100" fill="violet" data-fragment-index='4' class="fragment current-visible">
+                  Phase 3
+                  
+                </text>
+              </g>
+              <g>
+                <path d="M 50 175 h 50 l -3 -10 l 10 10 l -10 10 l 3 -10" stroke="black" fill="black"></path>
+                <path d="M 100 225 h -50 l 3 -10 l -10 10 l 10 10 l -3 -10" stroke="black" fill="black"></path>
+                <path d="M 700 175 h 50 l -3 -10 l 10 10 l -10 10 l 3 -10" stroke="black" fill="black"></path>
+                <path d="M 750 225 h -50 l 3 -10 l -10 10 l 10 10 l -3 -10" stroke="black" fill="black"></path>
+                <path d="M 375 75 v -50 l 10 3 l -10 -10 l -10 10 l 10 -3" stroke="black" fill="black"></path>
+                <path d="M 425 25 v 50 l -10 -3 l 10 10 l 10 -10 l -10 3" stroke="black" fill="black"></path>
+                <path d="M 375 375 v -50 l 10 3 l -10 -10 l -10 10 l 10 -3" stroke="black" fill="black"></path>
+                <path d="M 425 325 v 50 l -10 -3 l 10 10 l 10 -10 l -10 3" stroke="black" fill="black"></path>
+              </g>
+              <g data-fragment-index='2' class="fragment current-visible">
+                <path d="M 275 175 h 250 l -3 -10 l 10 10 l -10 10 l 3 -10" stroke="blue" fill="none"></path>
+                <path d="M 275 175 h 50 q 50 0 50 -50 v -25 l 10 3 l -10 -10 l -10 10 l 10 -3" stroke="blue" fill="none"></path>
+                <path d="M 275 225 l 3 -10 l -10 10 l 10 10 l -3 -10 h 250" stroke="blue" fill="none"></path>
+                <path d="M 525 225 h -50 q -50 0 -50 50 v 25 l -10 -3 l 10 10 l 10 -10 l -10 3" stroke="blue" fill="none"></path>
+              </g>
+              <g data-fragment-index='3' class="fragment current-visible">
+                <path d="M 375 300 v -200 l 10 3 l -10 -10 l -10 10 l 10 -3" stroke="blue" fill="none"></path>
+                <path d="M 375 300 v -25 q 0 -50 -50 -50 h -25 l 3 -10 l -10 10 l 10 10 l -3 -10" stroke="blue" fill="none"></path>
+                <path d="M 425 100 v 200 l -10 -3 l 10 10 l 10 -10 l -10 3" stroke="blue" fill="none"></path>
+                <path d="M 425 100 v 25 q 0 50 50 50 h 25 l -3 -10 l 10 10 l -10 10 l 3 -10" stroke="blue" fill="none"></path>
+              </g>
+              <g data-fragment-index='4' class="fragment current-visible">
+                <path d="M 375 300 v -75 q 0 -50 50 -50 h 75 l -3 -10 l 10 10 l -10 10 l 3 -10" stroke="blue" fill="none"></path>
+                <path d="M 425 100 v 75  q 0 50 -50 50 h -75 l 3 -10 l -10 10 l 10 10 l -3 -10" stroke="blue" fill="none"></path>
+              </g>
+            </svg>
+            <p>
+              A <em style="color: violet;">Phase</em> is a set of paths $\mathcal P = \{\color{blue}{P_1}, \ldots, \color{blue}{P_n}\}$
+              
+            </p>
+            <p>Only paths in current phase can be crossed</p>
+          </section>
+          <section>
+            <h3>Intersections - signals</h3>
+            <p>Traffic signalling logic chooses the active phase</p>
+            <ul>
+              <div class="fragment">
+                <li>Fixed time splits</li>
+                <p>Equal time to each phase</p>
+              </div>
+              <div class="fragment">
+                <li>SCATS (Sydney Coordinated Adaptive Traffic System)</li>
+                <p>Adaptive system, responds to real-time data</p>
+              </div>
+              <div class="fragment">
+                <li>SOTL (Self-Organised Traffic Lights)</li>
+                <p><small>J de Gier, T M Garoni, O Rojas, J. Stat. Mech. (2011)</small><br>Also adaptive, acyclic</p>
+              </div>
+            </ul>
+            <aside class="notes">
+              A finite state machine that defines the current active phase
+              Different systems come with a bunch of parameters
+              
+            </aside>
+          </section>
+          <section><img src="phases_bridge.svg" style="border: none; box-shadow: none; margin-top: 2em;">
+          </section>
+          <section><img src="structure.svg" style="border: none; box-shadow: none;">
+          </section>
+          <section>
+            <h3>Macroscopic Fundamental Diagram</h3>
+            <h4>Non-stationary</h4>
+            <table>
+              <tr>
+                <td width="50%"><img src="mfd_buisson.png" style="border: none; box-shadow: none;">
+                  <p><small>Buisson & Ladier 2009 <br> Empirical data from Toulouse</small></p>
+                </td>
+                <td width="50%"><img src="mfd_nonstationary.svg" style="border: none; box-shadow: none;">
+                  <p><small>Zhang, Garoni, de Gier 2013 <br> Simulated data</small></p>
+                </td>
+              </tr>
+            </table>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h3>Applications</h3>
+            <ul>
+              <div class="fragment">
+                <p>Theoretical nature</p>
+                <li>Incidents and diversions</li>
+                <li>Effect of parking</li>
+                <li>Tram priority</li>
+                <li>Effect of tram stop location</li>
+              </div>
+              <div class="fragment">
+                <p>Case studies</p>
+                <li>Inner North region</li>
+                <li>Hoddle St/Bridge Rd intersection</li>
+              </div>
+            </ul>
+          </section>
+          <section>
+            <h3>Hoddle St project</h3>
+            <p>Test different design for a specific intersection</p>
+            <iframe width="100%" height="520" frameborder="0" src="https://andreabedini.cartodb.com/viz/d7ae720c-23af-11e5-8322-0e9d821ea90d/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+          </section>
+          <section>
+            <div id="new-design"><img src="new_design_1.png" id="new-design-1"><img src="new_design_2.png" id="new-design-2"><img src="new_design_3.png" id="new-design-3"></div>
+          </section>
+          <section>
+            <h3>Calibrating the demand</h3><img src="volume_33863332_33323386.svg" width="800" style="border: none; box-shadow: none;">
+            <p>Boundary rates are tuned to match the measured throughput of vehicles</p>
+          </section>
+          <section><img src="extra_comparison_link_33923390_four.svg" width="800" style="border: none; box-shadow: none; margin-top: 2em;">
+          </section>
+        </section>
+        <section>
+          <h3>Open questions</h3>
+          <ul style="margin-top: 3em;">
+            <li>How sensitive is this model to the parameters?</li>
+            <li>Can we estimate parameters from data?</li>
+            <li>How to present error bars with so much uncertainty?</li>
+          </ul>
+          <aside class="notes">
+            Estimating errors is hard
+            
+          </aside>
+        </section>
+      </div>
+    </div>
+    <script src="reveal.js/lib/js/head.min.js"></script>
+    <script src="reveal.js/js/reveal.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
